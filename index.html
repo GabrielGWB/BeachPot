@@ -222,7 +222,7 @@
         // 修改照片加载函数
         async function loadPhotos() {
             try {
-                const response = await fetch('/.netlify/functions/getPhotos');
+                const response = await fetch('/api/getPhotos');
                 const photos = await response.json();
                 
                 const wrapper = document.querySelector('.swiper-wrapper');
@@ -292,7 +292,7 @@
                 formData.append('description', descriptionInput.value);
                 formData.append('category', categorySelect.value);
 
-                const response = await fetch('/.netlify/functions/upload', {
+                const response = await fetch('/api/upload', {
                     method: 'POST',
                     body: formData
                 });
