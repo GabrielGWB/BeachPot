@@ -81,6 +81,11 @@
             border-radius: 5px;
             cursor: pointer;
             margin: 0 10px;
+            display: inline-block;
+        }
+
+        .admin-btn:hover {
+            background: #ffed4a;
         }
 
         .modal {
@@ -95,12 +100,14 @@
         }
 
         .modal-content {
+            position: relative;
             background: #2c2c2c;
             margin: 15% auto;
             padding: 20px;
             width: 80%;
             max-width: 500px;
             border-radius: 10px;
+            color: white;
         }
 
         .close {
@@ -123,6 +130,31 @@
             padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
+        }
+
+        #photoUploadForm {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #photoUploadForm input,
+        #photoUploadForm select,
+        #photoUploadForm button {
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+
+        #photoUploadForm button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #photoUploadForm button:hover {
+            background: #45a049;
         }
     </style>
 </head>
@@ -183,7 +215,7 @@
                 <p>记录我们最魔性的时刻</p>
             </a>
             <a href="甜蜜回忆.html" class="nav-item">
-                <h2>甜蜜回忆</h2>
+                <h2>甜��回忆</h2>
                 <p>那些温暖的瞬间</p>
             </a>
             <a href="酒桌狂徒.html" class="nav-item">
@@ -196,7 +228,7 @@
     <!-- 背景音乐播放器 -->
     <div class="music-player">
         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 
-            src="//music.163.com/outchain/player?type=0&id=12378721032&auto=1&height=66">
+            src="https://music.163.com/outchain/player?type=0&id=12378721032&auto=1&height=66">
         </iframe>
     </div>
 
@@ -341,6 +373,17 @@
                     alert(data.message);
                 }
             });
+        });
+
+        document.querySelector('.admin-btn').addEventListener('click', function() {
+            const uploadForm = document.getElementById('uploadForm');
+            if (uploadForm) {
+                uploadForm.style.display = 'block';
+            }
+        });
+
+        document.querySelector('.close').addEventListener('click', function() {
+            document.getElementById('uploadForm').style.display = 'none';
         });
     </script>
 </body>
