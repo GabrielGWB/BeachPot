@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>酒桌狂徒 - 比奇煲</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1c1c1c, #2c2c2c);
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .drinking-moments {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .moment-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .moment-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .moment-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .moment-content {
+            padding: 20px;
+        }
+
+        .moment-title {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .quote {
+            font-style: italic;
+            color: #cccccc;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="比奇煲主页.html" class="back-button">返回主页</a>
+        <h1 style="text-align: center">酒桌狂徒</h1>
+        
+        <div class="quote">
+            "举杯邀明月，对影成三人" —— 兄弟情谊，酒中见真
+        </div>
+
+        <div class="drinking-moments">
+            <div class="moment-card">
+                <img src="path/to/drinking1.jpg" alt="酒局1">
+                <div class="moment-content">
+                    <h3 class="moment-title">火锅配啤酒</h3>
+                    <p>记得那天我们边吃火锅边喝啤酒，某某人竟然...</p>
+                </div>
+            </div>
+            <!-- 可以继续添加更多酒局回忆... -->
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>比奇煲 - 兄弟回忆录</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1c1c1c, #2c2c2c);
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 照片轮播样式 */
+        .swiper {
+            width: 100%;
+            height: 500px;
+            margin-bottom: 30px;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* 导航菜单样式 */
+        .nav-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .nav-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* 音乐播放器样式 */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .admin-controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .admin-btn {
+            background: #ffd700;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #2c2c2c;
+            margin: 15% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+
+        .close {
+            float: right;
+            cursor: pointer;
+            font-size: 28px;
+        }
+
+        .edit-mode .swiper-slide {
+            position: relative;
+        }
+
+        .edit-mode .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; margin-bottom: 30px;">比奇煲兄弟会</h1>
+
+        <!-- 添加上传按钮 -->
+        <div class="admin-controls">
+            <button class="admin-btn" onclick="document.getElementById('uploadForm').style.display='block'">上传新照片</button>
+            <button class="admin-btn" onclick="toggleEditMode()">管理照片</button>
+        </div>
+
+        <!-- 上传表单 -->
+        <div id="uploadForm" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="document.getElementById('uploadForm').style.display='none'">&times;</span>
+                <h2>上传新照片</h2>
+                <form id="photoUploadForm">
+                    <input type="file" name="photo" accept="image/*" required>
+                    <input type="text" name="description" placeholder="添加照片描述" required>
+                    <select name="category" required>
+                        <option value="抽象天地">抽象天地</option>
+                        <option value="甜蜜回忆">甜蜜回忆</option>
+                        <option value="酒桌狂徒">酒桌狂徒</option>
+                    </select>
+                    <button type="submit">上传</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 登录表单 -->
+        <div id="loginForm" class="modal">
+            <div class="modal-content">
+                <h2>管理员登录</h2>
+                <form id="adminLoginForm">
+                    <input type="text" name="username" placeholder="用户名" required>
+                    <input type="password" name="password" placeholder="密码" required>
+                    <button type="submit">登录</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 照片轮播 -->
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <!-- 照片将通过JavaScript动态加载 -->
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+
+        <!-- 导航菜单 -->
+        <div class="nav-menu">
+            <a href="抽象天地.html" class="nav-item">
+                <h2>抽象天地</h2>
+                <p>记录我们最魔性的时刻</p>
+            </a>
+            <a href="甜蜜回忆.html" class="nav-item">
+                <h2>甜蜜回忆</h2>
+                <p>那些温暖的瞬间</p>
+            </a>
+            <a href="酒桌狂徒.html" class="nav-item">
+                <h2>酒桌狂徒</h2>
+                <p>觥筹交错的快乐时光</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- 背景音乐播放器 -->
+    <div class="music-player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 
+            src="//music.163.com/outchain/player?type=0&id=12378721032&auto=1&height=66">
+        </iframe>
+    </div>
+
+    <!-- 引入 Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+
+        // 修改照片加载函数
+        async function loadPhotos() {
+            try {
+                const response = await fetch('/.netlify/functions/getPhotos');
+                const photos = await response.json();
+                
+                const wrapper = document.querySelector('.swiper-wrapper');
+                wrapper.innerHTML = '';
+                photos.forEach(photo => {
+                    wrapper.innerHTML += `
+                        <div class="swiper-slide">
+                            <img src="${photo.url}" alt="${photo.description}">
+                        </div>
+                    `;
+                });
+                swiper.update();
+            } catch (error) {
+                console.error('加载照片失败:', error);
+            }
+        }
+
+        // 切换编辑模式
+        function toggleEditMode() {
+            const container = document.querySelector('.swiper');
+            container.classList.toggle('edit-mode');
+            const deleteBtns = document.querySelectorAll('.delete-btn');
+            deleteBtns.forEach(btn => {
+                btn.style.display = container.classList.contains('edit-mode') ? 'block' : 'none';
+            });
+        }
+
+        // 检查登录状态
+        function checkLoginStatus() {
+            fetch('check_login.php')
+                .then(response => response.json())
+                .then(data => {
+                    const adminControls = document.querySelector('.admin-controls');
+                    if (data.logged_in) {
+                        adminControls.style.display = 'block';
+                    } else {
+                        adminControls.style.display = 'none';
+                    }
+                });
+        }
+
+        // 页面加载时获取照片
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPhotos();
+            checkLoginStatus();
+        });
+
+        // 修改上传函数
+        document.getElementById('photoUploadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch('/.netlify/functions/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('上传成功！');
+                    loadPhotos();
+                    document.getElementById('uploadForm').style.display = 'none';
+                } else {
+                    alert('上传失败：' + data.message);
+                }
+            } catch (error) {
+                alert('上传失败：' + error.message);
+            }
+        });
+
+        // 添加登录处理代码
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            
+            fetch('login.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('loginForm').style.display = 'none';
+                    checkLoginStatus();
+                } else {
+                    alert(data.message);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

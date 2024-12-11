@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽象天地 - 比奇煲</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1c1c1c, #2c2c2c);
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .meme-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            transition: transform 0.3s;
+        }
+
+        .meme-card:hover {
+            transform: scale(1.02);
+        }
+
+        .meme-card img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .meme-card p {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="比奇煲主页.html" class="back-button">返回主页</a>
+        <h1 style="text-align: center">抽象天地</h1>
+        
+        <div class="gallery">
+            <!-- 这里添加搞笑图片和视频 -->
+            <div class="meme-card">
+                <img src="path/to/meme1.jpg" alt="搞笑图片1">
+                <p>这是什么神仙场面🤣</p>
+            </div>
+            <!-- 可以继续添加更多... -->
+        </div>
+    </div>
+</body>
+</html> 

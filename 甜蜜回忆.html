@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>甜蜜回忆 - 比奇煲</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1c1c1c, #2c2c2c);
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .memory-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .memory-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .memory-item:before {
+            content: '';
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: #ffd700;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .memory-item:after {
+            content: '';
+            position: absolute;
+            left: -31px;
+            top: 50%;
+            width: 2px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(0%);
+        }
+
+        .memory-item:last-child:after {
+            display: none;
+        }
+
+        .memory-item img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .memory-date {
+            color: #ffd700;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .quote {
+            text-align: center;
+            font-style: italic;
+            color: #cccccc;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="比奇煲主页.html" class="back-button">返回主页</a>
+        <h1 style="text-align: center">甜蜜回忆</h1>
+
+        <div class="quote">
+            "岁月静好，因为有你们" —— 我们的故事
+        </div>
+
+        <div class="memory-timeline">
+            <div class="memory-item">
+                <div class="memory-date">2023年12月31日</div>
+                <img src="path/to/memory1.jpg" alt="跨年聚会">
+                <h3>跨年夜的欢聚</h3>
+                <p>那天晚上我们一起跨年，喝得酩酊大醉，唱着歌迎接新年...</p>
+            </div>
+
+            <div class="memory-item">
+                <div class="memory-date">2023年10月1日</div>
+                <img src="path/to/memory2.jpg" alt="国庆聚会">
+                <h3>国庆小聚</h3>
+                <p>难得的假期，大家聚在一起烧烤，谈天说地，欢声笑语...</p>
+            </div>
+            <!-- 可以继续添加更多回忆... -->
+        </div>
+    </div>
+</body>
+</html> 
