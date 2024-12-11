@@ -270,29 +270,58 @@
             checkLoginStatus();
         });
 
-        // 修改上传函数
-        document.getElementById('photoUploadForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            
+        // 修改上传处理函数
+        async function handleUpload(event) {
+            event.preventDefault();
+            const form = event.target;
+            const fileInput = form.querySelector('input[type="file"]');
+            const descriptionInput = form.querySelector('input[name="description"]');
+            const categorySelect = form.querySelector('select[name="category"]');
+
+            // 创建 FormData
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('请选择文件');
+                return;
+            }
+
             try {
+                // 首先上传文件到 Supabase Storage
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('description', descriptionInput.value);
+                formData.append('category', categorySelect.value);
+
                 const response = await fetch('/.netlify/functions/upload', {
                     method: 'POST',
                     body: formData
                 });
-                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
                 
-                if (data.success) {
+                if (result.success) {
                     alert('上传成功！');
-                    loadPhotos();
+                    // 清空表单
+                    form.reset();
+                    // 关闭模态框
                     document.getElementById('uploadForm').style.display = 'none';
+                    // 重新加载照片
+                    loadPhotos();
                 } else {
-                    alert('上传失败：' + data.message);
+                    alert('上传失败：' + (result.message || '未知错误'));
                 }
             } catch (error) {
+                console.error('上传错误:', error);
                 alert('上传失败：' + error.message);
             }
-        });
+        }
+
+        // 确保表单绑定了新的处理函数
+        document.getElementById('photoUploadForm').addEventListener('submit', handleUpload);
 
         // 添加登录处理代码
         document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
