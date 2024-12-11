@@ -58,14 +58,21 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
-        /* 音乐播放器样式 */
-        .music-player {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            border-radius: 5px;
+        /* 音乐区域样式 */
+        .music-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .music-section h2 {
+            text-align: center;
+            color: #ffd700;
+            font-size: 24px;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .admin-controls {
@@ -156,6 +163,45 @@
         #photoUploadForm button:hover {
             background: #45a049;
         }
+
+        /* 音乐播放器容器 */
+        .music-container {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .music-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffd700;
+        }
+
+        .music-player-wrapper {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        /* 模态框样式优化 */
+        .modal {
+            z-index: 9999 !important;
+        }
+
+        .modal-content {
+            z-index: 10000 !important;
+            background: #2c2c2c;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .music-frame {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
@@ -164,7 +210,7 @@
 
         <!-- 添加上传按钮 -->
         <div class="admin-controls">
-            <button class="admin-btn" onclick="document.getElementById('uploadForm').style.display='block'">上传新照片</button>
+            <button class="admin-btn" onclick="showUploadForm()">上传新照片</button>
             <button class="admin-btn" onclick="toggleEditMode()">管理照片</button>
         </div>
 
@@ -215,21 +261,28 @@
                 <p>记录我们最魔性的时刻</p>
             </a>
             <a href="甜蜜回忆.html" class="nav-item">
-                <h2>甜��回忆</h2>
-                <p>那些温暖的瞬间</p>
+                <h2>甜蜜回忆</h2>
+                <p>那温暖的瞬间</p>
             </a>
             <a href="酒桌狂徒.html" class="nav-item">
                 <h2>酒桌狂徒</h2>
                 <p>觥筹交错的快乐时光</p>
             </a>
         </div>
-    </div>
 
-    <!-- 背景音乐播放器 -->
-    <div class="music-player">
-        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 
-            src="https://music.163.com/outchain/player?type=0&id=12378721032&auto=1&height=66">
-        </iframe>
+        <!-- 音乐播放器 -->
+        <div class="container">
+            <div class="music-section">
+                <h2>比奇煲音乐台</h2>
+                <div class="music-frame">
+                    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" 
+                        width="100%" 
+                        height="600" 
+                        src="//music.163.com/outchain/player?type=0&id=12378721032&auto=0&height=580&bg=f7f7f7">
+                    </iframe>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- 引入 Swiper JS -->
@@ -297,9 +350,12 @@
         }
 
         // 页面加载时获取照片
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', function() {
             loadPhotos();
             checkLoginStatus();
+            
+            // 初始化所有模态框
+            initializeModals();
         });
 
         // 修改上传处理函数
@@ -339,7 +395,7 @@
                     alert('上传成功！');
                     // 清空表单
                     form.reset();
-                    // 关闭模态框
+                    // 闭模态框
                     document.getElementById('uploadForm').style.display = 'none';
                     // 重新加载照片
                     loadPhotos();
@@ -375,16 +431,34 @@
             });
         });
 
-        document.querySelector('.admin-btn').addEventListener('click', function() {
+        function showUploadForm() {
             const uploadForm = document.getElementById('uploadForm');
             if (uploadForm) {
                 uploadForm.style.display = 'block';
             }
-        });
+        }
 
-        document.querySelector('.close').addEventListener('click', function() {
-            document.getElementById('uploadForm').style.display = 'none';
-        });
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function initializeModals() {
+            // 关闭按钮事件
+            document.querySelectorAll('.close').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+
+            // 点击模态框外部关闭
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.style.display = 'none';
+                    }
+                });
+            });
+        }
     </script>
 </body>
 </html>
