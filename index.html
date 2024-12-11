@@ -252,7 +252,7 @@
 
         // 检查登录状态
         function checkLoginStatus() {
-            fetch('check_login.php')
+            fetch('/api/check-login')
                 .then(response => response.json())
                 .then(data => {
                     const adminControls = document.querySelector('.admin-controls');
@@ -328,7 +328,7 @@
             e.preventDefault();
             const formData = new FormData(this);
             
-            fetch('login.php', {
+            fetch('/api/login', {
                 method: 'POST',
                 body: formData
             })
